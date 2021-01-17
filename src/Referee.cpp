@@ -83,15 +83,15 @@ void Referee::run_for(unsigned game_count)
         for (std::size_t i = 0; i < m_hands.size(); ++i)
         {
             // if announcer won
-            if (i == p.value() && temp_points[p.value()] == maxi)
+            if (i == p.value() && temp_points[p.value()] == mini)
                 m_points[p.value()] += 2;
             else if (temp_points[i] != mini && temp_points[i] != maxi)
                 m_points[i] += 1;
-            else if (temp_points[i] == maxi)
+            else if (temp_points[i] == mini)
                 m_points[i] += 2;
 
             // attribute loser position
-            if (temp_points[i] == mini)
+            if (temp_points[i] == maxi)
                 last_loser = i;
         }
     }
