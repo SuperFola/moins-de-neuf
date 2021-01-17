@@ -1,0 +1,7 @@
+build/
+*.so
+*.lib
+*.a
+*.exe
+*.pdb
+*.o
