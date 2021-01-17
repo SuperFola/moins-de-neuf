@@ -1,6 +1,6 @@
 #include <Combination.hpp>
 
-#include <algorithm>  // std::transform, std::sort
+#include <algorithm>  // std::transform, std::sort, std::remove
 #include <iterator>  // std::back_inserter
 
 static std::optional<Combination> Combination::make_from_cards(std::initializer_list<Card> cards)
@@ -104,6 +104,31 @@ int Combination::getPoints() const noexcept
 Combination::Combination(Combination::Type type, std::initializer_list<Card> cards) noexcept :
     m_cards(cards), m_type(type)
 {}
+
+bool Combination::has(const Card& c) const noexcept
+{
+    if (m_cards.size() == 0)
+        return false;
+
+    for (const Card& card : m_cards)
+    {
+        if (card == c)
+            return true;
+    }
+
+    return false;
+}
+
+bool Combination::try_remove(const Card& c) noexcept
+{
+    if (!has(c))
+        return false;
+
+    std::remove(m_cards.begin(), m_cards.end(), c);
+    // no need to check for the return value, because with has() we know
+    // that the value was in the combination
+    return true;
+}
 
 std::ostream& operator<<(std::ostream& os, const Combination& comb)
 {

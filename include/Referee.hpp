@@ -20,6 +20,7 @@ public:
         m_strategies.emplace_back(
             std::make_unique<StrategyType>(strategy_name, std::forward<Args>(args)...);
         );
+        m_points.emplace_back(0);
     }
 
 private:
@@ -28,6 +29,7 @@ private:
     DiscardPile m_discard2;  ///< The second discard pile
 
     std::vector<std::unique_ptr<Strategy>> m_strategies;  ///< A polymorphic collection of strategies
+    std::vector<unsigned> m_points;  ///< A 1-to-1 mapping for the points per strategy
 };
 
 #endif  // GAME_REFEREE_HPP

@@ -29,13 +29,18 @@ bool Card::hasSameValue(const Card& card) const noexcept
     return m_value == card.m_value;
 }
 
+bool Card::operator==(const Card& card) const noexcept
+{
+    return m_value == card.m_value && m_suit == card.m_suit;
+}
+
 std::ostream& operator<<(std::ostream& os, const Card& card)
 {
     int points = card.getPoints();
     switch (points)
     {
         case 1:
-            os << "As";
+            os << "Ace";
             break;
 
         case 11:

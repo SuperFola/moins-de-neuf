@@ -52,6 +52,25 @@ public:
      */
     int getPoints() const noexcept;
 
+    /**
+     * @brief Checks if the combination holds a given card
+     * 
+     * @param c 
+     * @return true 
+     * @return false 
+     */
+    bool has(const Card& c) const noexcept;
+
+    /**
+     * @brief Try to remove a given card from a combination.
+     * @details Returns true if the card was deleted.
+     * 
+     * @param c 
+     * @return true If the card was present and deleted.
+     * @return false 
+     */
+    bool try_remove(const Card& c) noexcept;
+
     friend std::ostream& operator<<(std::ostream& os, const Combination& comb);
 
 private:

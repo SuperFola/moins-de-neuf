@@ -34,6 +34,35 @@ int Fold::getPoints() const
         return getCombination().getPoints();
 }
 
+bool Fold::has(const Card& c) const noexcept
+{
+    if (isCard())
+        return c == getCard();
+    else
+        return getCombination().has(c);
+}
+
+bool Fold::try_remove(const Card& c)
+{
+    if (isCard() && c == getCard())
+    {
+        m_empty = true;
+        return true;
+    }
+    else if (!isCard() && std::get<Combination>(m_content).try_remove(c))
+    {
+        m_empty = getCombination().empty();
+        return true;
+    }
+
+    return false;
+}
+
+bool Fold::empty() const noexcept
+{
+    return m_empty;
+}
+
 std::ostream& operator<<(std::ostream& os, const Fold& fold)
 {
     if (fold.isCard())

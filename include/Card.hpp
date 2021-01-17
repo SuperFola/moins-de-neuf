@@ -90,6 +90,15 @@ public:
      */
     bool hasSameValue(const Card& card) const noexcept;
 
+    /**
+     * @brief Checks if two cards are the same
+     * 
+     * @param card 
+     * @return true 
+     * @return false 
+     */
+    bool operator==(const Card& card) const noexcept;
+
     friend std::ostream& operator<<(std::ostream& os, const Card& card);
 
 private:
