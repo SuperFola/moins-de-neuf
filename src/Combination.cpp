@@ -87,6 +87,16 @@ static bool Combination::isStraight(std::initializer_list<Card> cards)
     return true;
 }
 
+bool Combination::empty() const noexcept
+{
+    return m_cards.empty();
+}
+
+std::size_t Combination::size() const noexcept
+{
+    return m_cards.size();
+}
+
 Combination::Type Combination::getType() const noexcept
 {
     return m_type;
@@ -128,6 +138,11 @@ bool Combination::try_remove(const Card& c) noexcept
     // no need to check for the return value, because with has() we know
     // that the value was in the combination
     return true;
+}
+
+const std::vector<Card>& Combination::getCards() const noexcept
+{
+    return m_cards;
 }
 
 std::ostream& operator<<(std::ostream& os, const Combination& comb)

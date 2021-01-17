@@ -39,6 +39,21 @@ public:
     static bool isStraight(std::initializer_list<Card> cards);
 
     /**
+     * @brief Checks if the combination is empty
+     * 
+     * @return true 
+     * @return false 
+     */
+    bool empty() const noexcept;
+
+    /**
+     * @brief Get the size of the combination
+     * 
+     * @return std::size_t 
+     */
+    std::size_t size() const noexcept;
+
+    /**
      * @brief Get the Type of the combination
      * 
      * @return Type 
@@ -70,6 +85,13 @@ public:
      * @return false 
      */
     bool try_remove(const Card& c) noexcept;
+
+    /**
+     * @brief Get the Cards object
+     * 
+     * @return const std::vector<Card>& 
+     */
+    const std::vector<Card>& getCards() const noexcept;
 
     friend std::ostream& operator<<(std::ostream& os, const Combination& comb);
 

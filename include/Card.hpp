@@ -2,6 +2,7 @@
 #define GAME_CARD_HPP
 
 #include <ostream>
+#include <vector>
 
 /**
  * @brief Defines a card in the game
@@ -28,7 +29,7 @@ public:
      */
     enum class Value
     {
-        As = 1,
+        Ace = 1,
         Two,
         Three,
         Four,
@@ -42,6 +43,21 @@ public:
         Queen,
         King
     };
+
+    static std::vector<Card> generate_deck()
+    {
+        std::vector<Card> deck(52);
+        for (std::size_t i = 0; i < 52; ++i)
+        {
+            deck[i] = Card(
+                static_cast<Suit>((i / 13) % 4),
+                // + 1 because Ace is = 1
+                static_cast<Value>(1 + (i % 13))
+            );
+        }
+
+        return deck;
+    }
 
     /**
      * @brief Construct a new Card object
@@ -105,5 +121,7 @@ private:
     const Suit m_suit;
     const Value m_value;
 };
+
+using Hand_t = std::vector<Card>;
 
 #endif  // GAME_CARD_HPP

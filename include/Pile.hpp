@@ -27,6 +27,13 @@ public:
      * 
      * @param cards the cards to have on the drawing deck
      */
+    Pile(const std::vector<Fold>& cards);
+
+    /**
+     * @brief Construct a new drawing deck from a collection of cards
+     * 
+     * @param cards the cards to have on the drawing deck
+     */
     Pile(std::initializer_list<Fold> cards);
 
     /**
@@ -38,6 +45,20 @@ public:
     bool empty() const noexcept;
 
     /**
+     * @brief Get the size of the pile
+     * 
+     * @return std::size_t 
+     */
+    virtual std::size_t size() const noexcept;
+
+    /**
+     * @brief Put a new fold on the pile
+     * 
+     * @param f 
+     */
+    void put(const Fold& f);
+
+    /**
      * @brief Get the last fold put on the pile
      * @details Returned as an optional because the pile can be empty.
      * 
@@ -47,15 +68,6 @@ public:
 
     /**
      * @brief Take the last card from the pile
-     * @details Only works for pile, not discard pile. Returns an optional
-     *          because the pile can be empty.
-     * 
-     * @return std::optional<Card> 
-     */
-    virtual std::optional<Card> take();
-
-    /**
-     * @brief Unimplemented (throws an exception) for the pile.
      * 
      * @param from_fold 
      * @return std::optional<Card> 
@@ -90,19 +102,19 @@ public:
     DiscardPile(Fold visible_card);
 
     /**
-     * @brief Unimplemented (throws an exception) for the discard pile.
+     * @brief Get the size of the discard pile
      * 
-     * @return std::optional<Card> 
+     * @return std::size_t 
      */
-    virtual std::optional<Card> take();
+    virtual std::size_t size() const noexcept override;
 
     /**
-     * @brief Unimplemented (throws an exception) for the pile.
+     * @brief Take a card from the last fold.
      * 
      * @param from_fold 
      * @return std::optional<Card> 
      */
-    virtual std::optional<Card> take(const Card& from_fold);
+    virtual std::optional<Card> take(const Card& from_fold) override;
 
     friend std::ostream& operator<<(std::ostream& os, const DiscardPile& pile);
 };
