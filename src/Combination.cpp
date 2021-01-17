@@ -3,7 +3,7 @@
 #include <algorithm>  // std::transform, std::sort, std::remove
 #include <iterator>  // std::back_inserter
 
-static std::optional<Combination> Combination::make_from_cards(std::initializer_list<Card> cards)
+std::optional<Combination> Combination::make_from_cards(std::initializer_list<Card> cards)
 {
     // a combination has at least 2 cards
     if (cards.size() < 2)
@@ -60,12 +60,12 @@ static std::optional<Combination> Combination::make_from_cards(std::initializer_
         }
     }
 
-    if (type != Combination::Type::Invalid)
-        return Combination(type, cards);
+    if (guess != Combination::Type::Invalid)
+        return Combination(guess, cards);
     return {};
 }
 
-static bool Combination::isStraight(std::initializer_list<Card> cards)
+bool Combination::isStraight(std::initializer_list<Card> cards)
 {
     if (cards.size() < 2)
         return false;

@@ -2,6 +2,7 @@
 #define GAME_FOLD_HPP
 
 #include <Card.hpp>
+#include <Combination.hpp>
 
 #include <variant>
 #include <ostream>

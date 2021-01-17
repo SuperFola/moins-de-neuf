@@ -1,5 +1,8 @@
 #include <Card.hpp>
 
+Card::Card()
+{}
+
 Card::Card(Card::Suit suit, Card::Value value) :
     m_suit(suit), m_value(value)
 {}

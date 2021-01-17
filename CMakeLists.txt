@@ -7,14 +7,12 @@ file(GLOB_RECURSE SOURCE_FILES
 )
 
 # including content of project
+include_directories(${PROJECT_SOURCE_DIR}/include)
 
-target_include_directories(${PROJECT_NAME}
-    PUBLIC
-        ${PROJECT_SOURCE_DIR}/include
-)
+# building exe
+add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 # setting up project properties
-
 set_target_properties(
     ${PROJECT_NAME}
     PROPERTIES
@@ -22,7 +20,3 @@ set_target_properties(
         CXX_STANDARD_REQUIRED ON
         CXX_EXTENSIONS OFF
 )
-
-# building exe
-
-add_executable(${PROJECT_NAME} ${SOURCE_FILES})

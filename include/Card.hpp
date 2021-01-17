@@ -62,6 +62,12 @@ public:
     /**
      * @brief Construct a new Card object
      * 
+     */
+    Card();
+
+    /**
+     * @brief Construct a new Card object
+     * 
      * @param suit 
      * @param value 
      */
@@ -118,8 +124,8 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Card& card);
 
 private:
-    const Suit m_suit;
-    const Value m_value;
+    Suit m_suit;
+    Value m_value;
 };
 
 using Hand_t = std::vector<Card>;

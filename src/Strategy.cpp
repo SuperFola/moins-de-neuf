@@ -11,6 +11,6 @@ const std::string& Strategy::getName() const noexcept
 
 std::ostream& operator<<(std::ostream& os, const Strategy& strat)
 {
-    os << m_name;
+    os << strat.m_name;
     return os;
 }

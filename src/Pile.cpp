@@ -18,7 +18,7 @@ bool Pile::empty() const noexcept
     return m_cards.empty();
 }
 
-virtual std::size_t Pile::size() const noexcept
+std::size_t Pile::size() const noexcept
 {
     return m_cards.size();
 }
@@ -35,7 +35,7 @@ std::optional<Fold> Pile::consultTop() const noexcept
     return m_cards.back();
 }
 
-virtual std::optional<Card> Pile::take(const Card&)
+std::optional<Card> Pile::take(const Card&)
 {
     /*
         This method is in Pile, not DiscardPile.
@@ -75,11 +75,13 @@ std::size_t DiscardPile::size() const noexcept
         if (f.isCard())
             ++s;
         else
-            s += f.getCombination().getSize();
+            s += f.getCombination().size();
     }
+
+    return s;
 }
 
-std::optional<Card> Pile::take(const Card& from_fold)
+std::optional<Card> DiscardPile::take(const Card& from_fold)
 {
     if (empty())
         return {};
@@ -87,14 +89,14 @@ std::optional<Card> Pile::take(const Card& from_fold)
     Fold& f = m_cards.back();
 
     // check that the wanted card is in the fold
-    if (!f.has(from_fold))
+    if (!f.try_remove(from_fold))
         return {};
-    f.remove(from_fold);
     // check if we should remove the fold (if empty)
     if (f.empty())
         m_cards.pop_back();
 
     return from_fold;
+}
 
 std::ostream& operator<<(std::ostream& os, const DiscardPile& pile)
 {

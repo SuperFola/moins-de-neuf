@@ -3,6 +3,7 @@
 
 #include <algorithm>  // std::shuffle
 #include <random>  // std::random_device, std::mt19937
+#include <iostream>  // std::cout, std::endl
 
 using namespace std::string_literals;
 
@@ -32,7 +33,7 @@ void Referee::run_for(unsigned game_count)
         {
             for (std::size_t j = 0; j < 7; ++j)
             {
-                m_hands.emplace_back(new_deck.back());
+                m_hands[j].push_back(new_deck.back());
                 new_deck.pop_back();
             }
         }
@@ -44,7 +45,9 @@ void Referee::run_for(unsigned game_count)
         new_deck.pop_back();
         m_discard2 = DiscardPile(new_deck.back());
         new_deck.pop_back();
-        m_deck = Pile(new_deck);
+        std::vector<Fold> deck_as_fold;
+        std::transform(new_deck.begin(), new_deck.end(), std::back_inserter(deck_as_fold), [](const Card& c) -> Fold { return Fold(c); });
+        m_deck = Pile(deck_as_fold);
 
         // first turn, the last loser starts
         auto p = play_round(last_loser);
@@ -130,7 +133,7 @@ std::optional<std::size_t> Referee::play_round(std::size_t from, std::size_t ski
         if (player_pos == skip)
             continue;
 
-        Strategy* player = m_strategies[player_pos];
+        Strategy* player = m_strategies[player_pos].get();
 
         auto do_discard = [&, this](){
             std::pair<Fold, DiscardPile*> discarded = player->discard(m_hands[player_pos], &m_deck, &m_discard1, &m_discard2);
@@ -164,7 +167,7 @@ std::optional<std::size_t> Referee::play_round(std::size_t from, std::size_t ski
             if (!top || !top.value().has(c))
                 throw std::runtime_error("The player "s + player->getName() + " tried to take a card from a pile where it wasn't available"s);
 
-            std::optional<Card> opt_c = draw.second->take(card);
+            std::optional<Card> opt_c = drawn.second->take(c);
             if (!opt_c)
                 throw std::runtime_error("The player "s + player->getName() + " tried to take a card from an empty pile");
 
