@@ -106,7 +106,7 @@ public:
      * 
      * @return std::size_t 
      */
-    virtual std::size_t size() const noexcept override;
+    std::size_t size() const noexcept override;
 
     /**
      * @brief Take a card from the last fold.
@@ -114,7 +114,7 @@ public:
      * @param from_fold 
      * @return std::optional<Card> 
      */
-    virtual std::optional<Card> take(const Card& from_fold) override;
+    std::optional<Card> take(const Card& from_fold) override;
 
     friend std::ostream& operator<<(std::ostream& os, const DiscardPile& pile);
 };

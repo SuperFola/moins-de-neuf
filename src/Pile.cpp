@@ -67,7 +67,7 @@ DiscardPile::DiscardPile(Fold visible_card) :
     Pile({ visible_card })
 {}
 
-virtual std::size_t DiscardPile::size() const noexcept
+std::size_t DiscardPile::size() const noexcept
 {
     std::size_t s = 0;
     for (const Fold& f : m_cards)
@@ -79,7 +79,7 @@ virtual std::size_t DiscardPile::size() const noexcept
     }
 }
 
-virtual std::optional<Card> Pile::take(const Card& from_fold)
+std::optional<Card> Pile::take(const Card& from_fold)
 {
     if (empty())
         return {};

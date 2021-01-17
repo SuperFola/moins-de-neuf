@@ -11,6 +11,7 @@ int main(int argc, char **argv)
     try
     {
         Referee r;
+        r.run_for(7);
     }
     catch (const std::exception& e)
     {
